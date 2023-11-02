@@ -1,7 +1,9 @@
+import MainEditor from './components/MainEditor'
 function App() {
 
   return (
     <>
+        <MainEditor/>
       
     </>
   )
