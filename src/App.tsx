@@ -1,12 +1,17 @@
-import MainEditor from './components/MainEditor'
-function App() {
+import React, { useEffect } from 'react';
+import MainEditor from './components/MainEditor';
+import { initSquares } from "./logic";
 
-  return (
-    <>
-        <MainEditor/>
-      
-    </>
-  )
+function App() {
+    useEffect(() => {
+        initSquares();
+    }, []);
+
+    return (
+        <>
+            <MainEditor />
+        </>
+    );
 }
 
-export default App
+export default App;
