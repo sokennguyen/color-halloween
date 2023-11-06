@@ -1,30 +1,65 @@
-import {useEffect, createElement} from'react'
-import svg from '../assets/test-svg.svg'
-import Svg from '../assets/test-svg.svg?react'
-const MainEditor = () => {
-    let mainDiv:any
-    useEffect (()=>{
-        const createMainEditor = async () => {
-            const holder = createElement('div')
-            const result = await fetch(svg)
-            const svgText = await result.text() 
-            const parser = new DOMParser()
-            const svgDoc = parser.parseFromString(svgText ,'image/svg+xml')
-            const svgObject = svgDoc.querySelector('svg')!;
-            const svgFields = svgObject.querySelector('g#Color')!.children
+import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/ghost-svg'
+import {useState} from 'react'
 
-            Array.from(svgFields).forEach((field:any)=>{
-                    field.onClick=()=>null
-            })
-            return holder
-         }
-         mainDiv = createMainEditor() 
-    },[])
-    const HandleFieldClick = () => {
-    }
-    return <>
-        <Svg />
-    </>
-    
+const EditNum = ({numId}:{numId:string}) => {
+    return <path fill="#000000"
+            d={NUMBERS[numId]}
+            id={'num'+numId.toString()}
+        />
 }
+const EditBg = ({bgId,setSelectedField,selectedField}
+                :{bgId:number,setSelectedField:any,selectedField:any}) => {
+    let fillColor = "#ffffff"
+    if (selectedField.length > 0)
+        if (selectedField[0] === bgId)
+            fillColor = "#E8E8E8" 
+    return <path fill={fillColor}
+        d={BACKGROUNDS[bgId].d}
+        id={'bg'+bgId.toString()}
+        onClick={()=>{
+            if (selectedField.length != 0)
+                setSelectedField([bgId])
+            else
+                setSelectedField(selectedField.concat(bgId))
+            console.log(selectedField)
+        }}
+    />
+}
+const Picture = ({picId}:{picId:number}) => {
+    return <path fill="#000000"
+                d={PICTURES[picId]}
+                id={picId.toString()}
+            />
+}
+const MainEditor = () => {
+    const [selectedField,setSelectedField] = useState([])
+    return ( 
+    <div style={{float:'right', height:'100vh', width:'60vw'}}>
+    <svg   id="svg1"
+        style={{width:'100%', height:'100%'}}
+        viewBox="0 0 648.48004 855.80261"
+        xmlns="http://www.w3.org/2000/svg">
+  
+        <path stroke="#000000"
+            d={BLACK}
+            id="black"
+        />
+        {BACKGROUNDS.map((bg,index:number) =>
+            <EditBg key={'bg'+index} bgId={index}
+                    setSelectedField={setSelectedField}
+                    selectedField={selectedField}
+            /> 
+        )}
+        {selectedField.map((num,index:number) =>
+            <EditNum key={'num'+num} numId={num}/> 
+        )}
+        {PICTURES.map((pic,index:number) =>
+            <Picture key={'pic'+index} picId={index}/>
+        )}
+        
+    </svg>
+ 
+    </div>
+)}
+
 export default MainEditor
