@@ -1,6 +1,6 @@
 import {Typography, Box, List, ListItem, createTheme, ThemeProvider, ListItemButton, ListItemText} from '@mui/material'
 import {yellow,red,blue,green,orange} from '@mui/material/colors'
-import {COLORS} from '../assets/constants'
+import {COLORS, FIELDS_VALUE} from '../assets/constants'
 interface NavigationProps {
     setSelectedField:any,
     selectedField:string[],
@@ -8,28 +8,24 @@ interface NavigationProps {
     setSelectedColor:any,
 }
 const Navigation = (props:NavigationProps) => {
-    const colors = COLORS    
-    const buttonTheme = createTheme({
-        palette:{
-            yellow:yellow,
-            red:red,
-            blue:blue,
-            green:green,
-            orange:orange,
-        }
-    })
-    const HandleButtonClick = (chosenColor:string) => {
+    const colors = COLORS   
+    const HandleButtonClick = (chosenColor:number) => {
         props.setSelectedColor(chosenColor)
         if (props.selectedField.length!=0){
             //validate then
-            const equation = document.
-                                querySelector(`#num${props.selectedField}`)!
-            equation.style.fill='none';
-            const bg = document.querySelector(`#bg${props.selectedField}`)!
-            bg.style.fill=chosenColor;
-            bg.removeEventListener;
-            props.setSelectedField([])
-            props.setSelectedColor(null)
+            if (props.selectedField.length === 1 &&
+                FIELDS_VALUE[props.selectedField[0]] === chosenColor) 
+            {
+                const equation = document.
+                    querySelector(`#num${props.selectedField}`)!
+                equation.style.fill='none';
+                const bg = document.querySelector(`#bg${props.selectedField}`)!
+                bg.style.fill=COLORS.find(color => color.value === chosenColor)
+                                .text
+                bg.removeEventListener;
+                props.setSelectedField([])
+                props.setSelectedColor(null)
+            }
         }
         else {
         }
@@ -49,10 +45,12 @@ const Navigation = (props:NavigationProps) => {
             {colors.map((color,index:any) => {
                 return <ListItem key={'color'+index}>
                     <ListItemButton
-                    selected={color.text===props.selectedColor}
-                    onClick={()=>HandleButtonClick(color.text)}
+                    selected={color.value===props.selectedColor}
+                    onClick={()=>HandleButtonClick(color.value)}
                     >
-                        <ListItemText primary={color.value+' = '+color.text}/> 
+                        <ListItemText 
+                            primaryTypographyProps={{style: {color:color.value}}}
+                            primary={color.value+' = '+color.text}/> 
                     </ListItemButton>
                 </ListItem> 
             })}

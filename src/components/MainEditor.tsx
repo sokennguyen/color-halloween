@@ -1,5 +1,4 @@
 import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/test/ghost-svg'
-import {useState} from 'react'
 const EditNum = ({numId}:{numId:string}) => {
     return <path fill="#000000"
             d={NUMBERS[numId].d}
@@ -32,7 +31,6 @@ const Picture = ({picId,isGhost}:{picId:number,isGhost:boolean}) => {
 }
 const MainEditor = ({selectedField,setSelectedField}:
                     {selectedField:any, setSelectedField:any}) => {
-    const [finished,setFinished]=useState()
     return ( 
     <div style={{height:'100vh', width:'60vw'}}>
     <svg   id="svg1"
