@@ -1,9 +1,8 @@
-import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/ghost-svg'
+import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/test/ghost-svg'
 import {useState} from 'react'
-
 const EditNum = ({numId}:{numId:string}) => {
     return <path fill="#000000"
-            d={NUMBERS[numId]}
+            d={NUMBERS[numId].d}
             id={'num'+numId.toString()}
         />
 }
@@ -21,20 +20,21 @@ const EditBg = ({bgId,setSelectedField,selectedField}
                 setSelectedField([bgId])
             else
                 setSelectedField(selectedField.concat(bgId))
-            console.log(selectedField)
         }}
     />
 }
-const Picture = ({picId}:{picId:number}) => {
-    return <path fill="#000000"
+const Picture = ({picId,isGhost}:{picId:number,isGhost:boolean}) => {
+    const fillColor = isGhost ? "#000000" : "#ffffff"
+    return <path fill={fillColor}
                 d={PICTURES[picId]}
                 id={picId.toString()}
             />
 }
-const MainEditor = () => {
-    const [selectedField,setSelectedField] = useState([])
+const MainEditor = ({selectedField,setSelectedField}:
+                    {selectedField:any, setSelectedField:any}) => {
+    const [finished,setFinished]=useState()
     return ( 
-    <div style={{float:'right', height:'100vh', width:'60vw'}}>
+    <div style={{height:'100vh', width:'60vw'}}>
     <svg   id="svg1"
         style={{width:'100%', height:'100%'}}
         viewBox="0 0 648.48004 855.80261"
@@ -53,9 +53,12 @@ const MainEditor = () => {
         {selectedField.map((num,index:number) =>
             <EditNum key={'num'+num} numId={num}/> 
         )}
-        {PICTURES.map((pic,index:number) =>
-            <Picture key={'pic'+index} picId={index}/>
-        )}
+        {PICTURES.map((pic,index:number) => {
+            if (index>1)
+                return <Picture key={'pic'+index} isGhost={false} picId={index}/>
+            else return <Picture key={'pic'+index} isGhost={true} picId={index}/>
+
+        })}
         
     </svg>
  
