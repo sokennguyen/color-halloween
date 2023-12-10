@@ -43,7 +43,7 @@ const SetSquares = (inputSquare: any) => {
 }
 const initState = () => {
     if (localStorage.getItem('Squares'))
-        squares = JSON.parse(localStorage.getItem('Squares'))
+        squares = JSON.parse(localStorage.getItem('Squares')!)
     return localStorage
 }
 const wipeSessionHistory = () => {

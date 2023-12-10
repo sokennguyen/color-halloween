@@ -1,6 +1,6 @@
 import {Typography, Box, List, ListItem, createTheme, ThemeProvider, ListItemButton, ListItemText, Button} from '@mui/material'
 import {yellow,red,blue,grey,orange} from '@mui/material/colors'
-import {COLORS, FIELDS_VALUE} from '../assets/constants.js'
+import {COLORS, FIELDS_VALUE} from '../assets/constants.js' 
 
 //have have to add new options to MUI pallete. Only 3 options come in the default 
 declare module '@mui/material/styles' {
@@ -43,7 +43,7 @@ const theme = createTheme({
 interface NavigationProps {
     setSelectedField:any,
     selectedField:string[],
-    selectedColor:string,
+    selectedColor:any,
     setSelectedColor:any,
 }
 const Navigation = (props:NavigationProps) => {
