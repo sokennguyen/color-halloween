@@ -2,6 +2,7 @@ import {Typography, Box, List, ListItem, createTheme, ThemeProvider, ListItemBut
 import {yellow,red,blue,grey,orange} from '@mui/material/colors'
 import {COLORS, FIELDS_VALUE} from '../assets/constants.js'
 
+//have have to add new options to MUI pallete. Only 3 options come in the default 
 declare module '@mui/material/styles' {
     interface Palette {
         yellow: Palette['primary'];
@@ -56,9 +57,14 @@ const Navigation = (props:NavigationProps) => {
             {
                 const equation = document.querySelector(`#num${props.selectedField}`)!
                 equation.style.fill='none';
-                const bg = document.querySelector(`#bg${props.selectedField}`)!
+                let bg = document.querySelector(`#bg${props.selectedField}`)!
                 bg.style.fill=COLORS.find((color:any) => color.value === chosenColor).text
-                bg.removeEventListener;
+
+                //remove event listener by replace the field with its clone
+                //the clone does not hold any event listener
+                bg.parentNode!.replaceChild(bg.cloneNode(true),bg);
+
+            
                 props.setSelectedField([])
                 props.setSelectedColor(null)
             }
@@ -77,40 +83,41 @@ const Navigation = (props:NavigationProps) => {
                     justifyContent:'center',
                     }} 
                 width='40vw'>
-        <Typography sx={{ color:'#42021c', fontSize:'7vw', textAlign:'center', opacity:1, fontFamily:'Monospace', fontWeight:'700', marginBottom:'50px'}} > 
+        <Typography sx={{ color:'#42021c', fontSize:'7vw', textAlign:'center', opacity:1, fontFamily:'Monospace', fontWeight:'700', marginBottom:'1vh'}} > 
                         Color Halloween
         </Typography>
+        {/*Have to do this inefficient hard coding because MUI don't seen to support dynamic insert in Button's color attribute*/}
         <List>
                 <ListItem key={'button yellow'}>
-                    <Button variant='contained' color='yellow' sx={{fontSize:'9vw', width:'10vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(1)}>
+                    <Button variant='contained' color='yellow' sx={{fontSize:'9vw', width:'15vw', height:'6vw', margin:'1vw'}} onClick={()=>HandleButtonClick(1)}>
                         <ListItemText 
                             primaryTypographyProps={{style: {color:'black'}}}
                             primary='1 = Yellow'/> 
                     </Button>
                 </ListItem> 
                 <ListItem key={'button red'}>
-                    <Button variant='contained' color='red' sx={{fontSize:'9vw', width:'10vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(2)}>
+                    <Button variant='contained' color='red' sx={{fontSize:'9vw', width:'15vw', height:'6vw', margin:'1vw'}} onClick={()=>HandleButtonClick(2)}>
                         <ListItemText 
                             primaryTypographyProps={{style: {color:'white'}}}
                             primary='2 = Red'/> 
                     </Button>
                 </ListItem> 
                 <ListItem key={'button blue'}>
-                    <Button variant='contained' color='blue' sx={{fontSize:'9vw', width:'10vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(3)}>
+                    <Button variant='contained' color='blue' sx={{fontSize:'9vw', width:'15vw', height:'6vw', margin:'1vw'}} onClick={()=>HandleButtonClick(3)}>
                         <ListItemText 
                             primaryTypographyProps={{style: {color:'white'}}}
                             primary='3 = Blue'/> 
                     </Button>
                 </ListItem> 
                 <ListItem key={'button grey'}>
-                    <Button variant='contained' color='grey' sx={{fontSize:'9vw', width:'10vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(4)}>
+                    <Button variant='contained' color='grey' sx={{fontSize:'9vw', width:'15vw', height:'6vw', margin:'1vw'}} onClick={()=>HandleButtonClick(4)}>
                         <ListItemText 
                             primaryTypographyProps={{style: {color:'black'}}}
                             primary='4 = Grey'/> 
                     </Button>
                 </ListItem> 
                 <ListItem key={'button orange'}>
-                    <Button variant='contained' color='orange' sx={{fontSize:'9vw', width:'10vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(5)}>
+                    <Button variant='contained' color='orange' sx={{fontSize:'9vw', width:'15vw', height:'6vw', margin:'15px'}} onClick={()=>HandleButtonClick(5)}>
                         <ListItemText 
                             primaryTypographyProps={{style: {color:'white'}}}
                             primary='5 = Orange'/> 

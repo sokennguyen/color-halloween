@@ -12,14 +12,14 @@ const EditBg = ({bgId,setSelectedField,selectedField}
         if (selectedField[0] === bgId)
             fillColor = "#E8E8E8" 
     return <path fill={fillColor}
-        d={BACKGROUNDS[bgId].d}
-        id={'bg'+bgId.toString()}
-        onClick={()=>{
-            if (selectedField.length != 0)
-                setSelectedField([bgId])
-            else
-                setSelectedField(selectedField.concat(bgId))
-        }}
+                d={BACKGROUNDS[bgId].d}
+                id={'bg'+bgId.toString()}
+                onClick={()=>{
+                    if (selectedField.length != 0)
+                        setSelectedField([bgId])
+                    else
+                        setSelectedField(selectedField.concat(bgId))
+                }}
     />
 }
 const Picture = ({picId,isGhost}:{picId:number,isGhost:boolean}) => {
