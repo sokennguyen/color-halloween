@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MainEditor from './components/MainEditor';
 import Navigation from './components/Navigation';
 import { initSquares } from "./logic";
+import background from "./assets/bg.jpg";
 import './App.css'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     }, []);
 
     return (
-        <div className='main-container'>
+        <div className='main-container' style={{backgroundImage:`url(${background})`, backgroundSize:'cover'}}>
             <Navigation setSelectedField = {setSelectedField}
                         selectedField = {selectedField}
                         selectedColor = {selectedColor}

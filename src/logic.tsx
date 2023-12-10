@@ -98,7 +98,7 @@ function TestLog() {
     console.log("Set SetcurrentAns to 3")
     SetcurrentAns(3);
     console.log(currentAns);
-    test(10);
+    test(10,2);
     test(1000,true);
 
     console.group("results");
