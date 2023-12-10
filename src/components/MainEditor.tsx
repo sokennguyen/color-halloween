@@ -1,4 +1,4 @@
-import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/test/ghost-svg'
+import {BLACK, BACKGROUNDS, NUMBERS, PICTURES} from '../assets/ghost-svg'
 const EditNum = ({numId}:{numId:string}) => {
     return <path fill="#000000"
             d={NUMBERS[numId].d}
